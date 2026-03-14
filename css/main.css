@@ -1,0 +1,152 @@
+/* Reset CSS */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+    font-family: 'Arial', sans-serif; /* Fonte padrão provisória */
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+img, picture, video, canvas, svg {
+    max-width: 100%;
+    display: block;
+}
+
+input, button, textarea, select {
+    font: inherit;
+}
+
+/* Remove all animations, transitions and scroll-behavior for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Variáveis (exemplo) */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --text-color: #333;
+    --background-color: #f8f9fa;
+    --header-height: 60px;
+}
+
+/* Estilos Base */
+body {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+    color: var(--primary-color);
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+/* Header */
+.header {
+    background-color: #fff;
+    padding: 1em 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header__nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.header__nav-item {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: bold;
+    padding: 0.5em 1em;
+    transition: color 0.3s ease;
+}
+
+.header__nav-item:hover {
+    color: #0056b3;
+}
+
+/* Main Content */
+.main-content {
+    padding: 2em;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.hero-section, .about-section, .contact-section {
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+/* Footer */
+.footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1.5em 0;
+    margin-top: 2em;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .header__nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .main-content {
+        padding: 1em;
+        margin: 10px auto;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    .header__nav-item {
+        padding: 0.3em 0.8em;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+}
