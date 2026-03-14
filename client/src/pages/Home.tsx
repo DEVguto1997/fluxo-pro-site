@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, Zap, MessageCircle, Calendar, TrendingUp, Brain, Smartphone, BookOpen, CheckCircle2, Cpu, Sparkles, Waves } from "lucide-react";
 import { useState, useEffect } from "react";
+import { ServicesShowcase } from "@/components/ServicesShowcase";
 
 export default function Home() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -139,7 +140,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* Services Section with Tabs */}
       <section id="services" className="py-32 relative">
         <div className="container">
           <div className="text-center mb-20">
@@ -151,27 +152,8 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, idx) => (
-              <div
-                key={idx}
-                className={`group relative overflow-hidden rounded-xl p-6 bg-card/50 backdrop-blur-sm border border-primary/20 hover:border-primary/50 smooth-transition ${service.color} hover:scale-105`}
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 smooth-transition" />
-                
-                <div className="relative z-10">
-                  <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/30 smooth-transition text-primary group-hover:scale-110">
-                    {service.icon}
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">{service.title}</h3>
-                  <p className="text-muted-foreground mb-4">{service.description}</p>
-                  <div className="flex items-center text-primary text-sm font-semibold group-hover:translate-x-2 smooth-transition">
-                    Explorar <ArrowRight className="ml-2 w-4 h-4" />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* Interactive Tabs */}
+          <ServicesShowcase />
         </div>
       </section>
 
