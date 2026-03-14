@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MessageCircle, Calendar, Instagram, Zap, BookOpen } from "lucide-react";
+import { MessageCircle, Calendar, Instagram, Zap, BookOpen, X, User, Bot } from "lucide-react";
 
 interface Message {
   id: number;
@@ -9,28 +9,117 @@ interface Message {
   delay: number;
 }
 
+interface Course {
+  title: string;
+  items: string[];
+  color: string;
+  ementa: string[];
+}
+
 export function ServicesShowcase() {
   const [activeTab, setActiveTab] = useState("whatsapp");
   const [messages, setMessages] = useState<Message[]>([]);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
   // WhatsApp Chat Animation
   const whatsappMessages: Message[] = [
-    { id: 1, text: "Olá! Gostaria de saber mais sobre seus serviços", sender: "user", delay: 0 },
-    { id: 2, text: "Oi! Bem-vindo à Fluxo Pro 👋", sender: "bot", delay: 800 },
-    { id: 3, text: "Temos soluções de IA para automação de atendimento", sender: "bot", delay: 1600 },
-    { id: 4, text: "Posso agendar uma demonstração?", sender: "user", delay: 2400 },
-    { id: 5, text: "Claro! Deixa eu verificar minha agenda...", sender: "bot", delay: 3200 },
-    { id: 6, text: "✅ Agendado para amanhã às 10:00", sender: "bot", delay: 4000 },
+    { id: 0, text: "Olá! Eu sou a Agente de IA da Fluxo Pro. Como posso ajudá-lo hoje?", sender: "bot", delay: 500 },
+    { id: 1, text: "Olá! Gostaria de saber mais sobre seus serviços", sender: "user", delay: 2500 },
+    { id: 2, text: "Ótimo! Temos soluções de IA para automação de atendimento", sender: "bot", delay: 4500 },
+    { id: 3, text: "Posso agendar uma demonstração?", sender: "user", delay: 6500 },
+    { id: 4, text: "Claro! Deixa eu verificar minha agenda...", sender: "bot", delay: 8500 },
+    { id: 5, text: "✅ Agendado para amanhã às 10:00", sender: "bot", delay: 10500 },
   ];
 
   const instagramMessages: Message[] = [
     { id: 1, text: "Oi! Tudo bem? 😊", sender: "user", delay: 0 },
-    { id: 2, text: "Oi! Tudo certo! Como posso ajudar?", sender: "bot", delay: 800 },
-    { id: 3, text: "Gostaria de conhecer mais sobre seus produtos", sender: "user", delay: 1600 },
-    { id: 4, text: "Perfeito! Você tem interesse em qual solução?", sender: "bot", delay: 2400 },
-    { id: 5, text: "Atendimento automático com IA", sender: "user", delay: 3200 },
-    { id: 6, text: "Excelente escolha! 🚀 Vou enviar mais detalhes", sender: "bot", delay: 4000 },
+    { id: 2, text: "Oi! Tudo certo! Como posso ajudar?", sender: "bot", delay: 1200 },
+    { id: 3, text: "Gostaria de conhecer mais sobre seus produtos", sender: "user", delay: 2400 },
+    { id: 4, text: "Perfeito! Você tem interesse em qual solução?", sender: "bot", delay: 3600 },
+    { id: 5, text: "Atendimento automático com IA", sender: "user", delay: 4800 },
+    { id: 6, text: "Excelente escolha! 🚀 Vou enviar mais detalhes", sender: "bot", delay: 6000 },
+  ];
+
+  const courses: Course[] = [
+    {
+      title: "Ferramentas Google",
+      items: ["Google Sheets", "Google Docs", "Google Forms", "Google Drive"],
+      color: "border-glow-cyan",
+      ementa: [
+        "Módulo 1: Introdução ao Google Workspace",
+        "Módulo 2: Google Sheets - Fórmulas e Análise de Dados",
+        "Módulo 3: Google Docs - Colaboração em Tempo Real",
+        "Módulo 4: Google Forms - Criação de Formulários",
+        "Módulo 5: Google Drive - Organização e Compartilhamento",
+        "Projeto Final: Integração de Ferramentas"
+      ]
+    },
+    {
+      title: "Windows & Linux",
+      items: ["Automação Windows", "Shell Script", "Terminal Linux", "Batch Files"],
+      color: "border-glow-green",
+      ementa: [
+        "Módulo 1: Fundamentos do Windows",
+        "Módulo 2: Automação com Batch Files",
+        "Módulo 3: PowerShell Avançado",
+        "Módulo 4: Introdução ao Linux",
+        "Módulo 5: Shell Script Profissional",
+        "Módulo 6: Automatização de Tarefas"
+      ]
+    },
+    {
+      title: "IA & Criatividade",
+      items: ["ChatGPT", "Canva", "Ferramentas IA", "Prompting"],
+      color: "border-glow-pink",
+      ementa: [
+        "Módulo 1: Introdução à IA Generativa",
+        "Módulo 2: ChatGPT - Prompting Efetivo",
+        "Módulo 3: Canva - Design Profissional",
+        "Módulo 4: Ferramentas IA Complementares",
+        "Módulo 5: Criação de Conteúdo com IA",
+        "Projeto: Campanha Completa com IA"
+      ]
+    },
+    {
+      title: "Alinhado com BNCC",
+      items: ["Competências Digitais", "Pensamento Computacional", "Criatividade", "Inovação"],
+      color: "border-glow-cyan",
+      ementa: [
+        "Módulo 1: BNCC - Competências Digitais",
+        "Módulo 2: Pensamento Computacional",
+        "Módulo 3: Criatividade e Inovação",
+        "Módulo 4: Resolução de Problemas",
+        "Módulo 5: Colaboração Digital",
+        "Avaliação: Projeto Interdisciplinar"
+      ]
+    },
+    {
+      title: "Referencial MEC",
+      items: ["Uso de IA na Educação", "Segurança Digital", "Ética Digital", "Inclusão Digital"],
+      color: "border-glow-green",
+      ementa: [
+        "Módulo 1: IA na Educação - Referencial MEC",
+        "Módulo 2: Segurança Digital e Proteção de Dados",
+        "Módulo 3: Ética Digital e Responsabilidade",
+        "Módulo 4: Inclusão Digital",
+        "Módulo 5: Acessibilidade em Plataformas Digitais",
+        "Seminário: Desafios e Oportunidades"
+      ]
+    },
+    {
+      title: "Edição & Produção",
+      items: ["Edição de Vídeo", "Produção de Conteúdo", "Podcast", "Animação"],
+      color: "border-glow-pink",
+      ementa: [
+        "Módulo 1: Fundamentos de Edição de Vídeo",
+        "Módulo 2: Produção de Conteúdo Profissional",
+        "Módulo 3: Criação e Edição de Podcast",
+        "Módulo 4: Animação e Motion Graphics",
+        "Módulo 5: Otimização para Redes Sociais",
+        "Projeto Final: Produção Completa"
+      ]
+    }
   ];
 
   const startAnimation = (type: string) => {
@@ -87,31 +176,41 @@ export function ServicesShowcase() {
                 onClick={() => startAnimation("whatsapp")}
                 className="px-6 py-2 bg-primary text-background rounded-lg hover:bg-primary/80 smooth-transition glow-cyan"
               >
-                {isAnimating && activeTab === "whatsapp" ? "Animando..." : "Ver Animação"}
+                {isAnimating && activeTab === "whatsapp" ? "Animando..." : "Ver Demonstração"}
               </button>
             </div>
 
-            {/* Chat Simulator */}
-            <div className="bg-card/50 border border-glow-cyan rounded-xl p-4 h-96 overflow-y-auto space-y-3">
+            {/* WhatsApp Chat Simulator */}
+            <div className="bg-gradient-to-b from-[#0a4d2f] to-[#0d3b2a] rounded-2xl p-4 h-96 overflow-y-auto space-y-3 border border-[#25d366]/30 shadow-lg">
               {messages.length === 0 && activeTab === "whatsapp" && (
-                <div className="text-center text-muted-foreground mt-32">
-                  <p>Clique em "Ver Animação" para começar</p>
+                <div className="text-center text-[#aec9c2] mt-32">
+                  <p>Clique em "Ver Demonstração" para começar</p>
                 </div>
               )}
               {messages.map((msg) => (
                 <div
                   key={msg.id}
-                  className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"} animate-fadeIn`}
+                  className={`flex items-end gap-2 ${msg.sender === "user" ? "justify-end" : "justify-start"} animate-fadeIn`}
                 >
+                  {msg.sender === "bot" && (
+                    <div className="w-6 h-6 rounded-full bg-[#25d366] flex items-center justify-center flex-shrink-0">
+                      <Bot className="w-3 h-3 text-black" />
+                    </div>
+                  )}
                   <div
-                    className={`max-w-xs px-4 py-2 rounded-lg ${
+                    className={`max-w-xs px-3 py-2 rounded-2xl text-sm ${
                       msg.sender === "user"
-                        ? "bg-primary text-background rounded-br-none"
-                        : "bg-secondary text-foreground rounded-bl-none"
+                        ? "bg-[#005c4b] text-white rounded-br-none"
+                        : "bg-[#1f4d3a] text-[#e1e8e6] rounded-bl-none border border-[#25d366]/20"
                     }`}
                   >
                     {msg.text}
                   </div>
+                  {msg.sender === "user" && (
+                    <div className="w-6 h-6 rounded-full bg-[#0084ff] flex items-center justify-center flex-shrink-0">
+                      <User className="w-3 h-3 text-white" />
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -181,7 +280,7 @@ export function ServicesShowcase() {
                 onClick={() => startAnimation("instagram")}
                 className="px-6 py-2 bg-primary text-background rounded-lg hover:bg-primary/80 smooth-transition glow-cyan"
               >
-                {isAnimating && activeTab === "instagram" ? "Animando..." : "Ver Animação"}
+                {isAnimating && activeTab === "instagram" ? "Animando..." : "Ver Demonstração"}
               </button>
             </div>
 
@@ -189,7 +288,7 @@ export function ServicesShowcase() {
             <div className="bg-card/50 border border-glow-pink rounded-xl p-4 h-96 overflow-y-auto space-y-3">
               {messages.length === 0 && activeTab === "instagram" && (
                 <div className="text-center text-muted-foreground mt-32">
-                  <p>Clique em "Ver Animação" para começar</p>
+                  <p>Clique em "Ver Demonstração" para começar</p>
                 </div>
               )}
               {messages.map((msg) => (
@@ -252,39 +351,12 @@ export function ServicesShowcase() {
           <div>
             <h3 className="text-3xl font-bold mb-6">Programas de Capacitação</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                {
-                  title: "Ferramentas Google",
-                  items: ["Google Sheets", "Google Docs", "Google Forms", "Google Drive"],
-                  color: "border-glow-cyan"
-                },
-                {
-                  title: "Windows & Linux",
-                  items: ["Automação Windows", "Shell Script", "Terminal Linux", "Batch Files"],
-                  color: "border-glow-green"
-                },
-                {
-                  title: "IA & Criatividade",
-                  items: ["ChatGPT", "Canva", "Ferramentas IA", "Prompting"],
-                  color: "border-glow-pink"
-                },
-                {
-                  title: "Alinhado com BNCC",
-                  items: ["Competências Digitais", "Pensamento Computacional", "Criatividade", "Inovação"],
-                  color: "border-glow-cyan"
-                },
-                {
-                  title: "Referencial MEC",
-                  items: ["Uso de IA na Educação", "Segurança Digital", "Ética Digital", "Inclusão Digital"],
-                  color: "border-glow-green"
-                },
-                {
-                  title: "Edição & Produção",
-                  items: ["Edição de Vídeo", "Produção de Conteúdo", "Podcast", "Animação"],
-                  color: "border-glow-pink"
-                }
-              ].map((course, idx) => (
-                <div key={idx} className={`bg-card/50 border ${course.color} rounded-xl p-6 hover:scale-105 smooth-transition`}>
+              {courses.map((course, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setSelectedCourse(course)}
+                  className={`bg-card/50 border ${course.color} rounded-xl p-6 hover:scale-105 smooth-transition text-left transition-all`}
+                >
                   <h4 className="font-bold mb-4 text-primary">{course.title}</h4>
                   <ul className="space-y-2">
                     {course.items.map((item, i) => (
@@ -294,12 +366,49 @@ export function ServicesShowcase() {
                       </li>
                     ))}
                   </ul>
-                </div>
+                  <p className="text-xs text-primary mt-4 font-semibold">Clique para ver ementa →</p>
+                </button>
               ))}
             </div>
           </div>
         </TabsContent>
       </Tabs>
+
+      {/* Course Modal */}
+      {selectedCourse && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-card border border-primary/20 rounded-2xl p-8 max-w-2xl w-full max-h-96 overflow-y-auto">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold">{selectedCourse.title}</h2>
+              <button
+                onClick={() => setSelectedCourse(null)}
+                className="p-2 hover:bg-card/50 rounded-lg smooth-transition"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              <h3 className="font-semibold text-primary mb-4">Ementa do Curso:</h3>
+              {selectedCourse.ementa.map((item, idx) => (
+                <div key={idx} className="flex gap-3 items-start">
+                  <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-1">
+                    <span className="text-xs font-bold text-primary">{idx + 1}</span>
+                  </div>
+                  <p className="text-muted-foreground">{item}</p>
+                </div>
+              ))}
+            </div>
+
+            <button
+              onClick={() => setSelectedCourse(null)}
+              className="w-full mt-6 px-4 py-2 bg-primary text-background rounded-lg hover:bg-primary/80 smooth-transition"
+            >
+              Fechar
+            </button>
+          </div>
+        </div>
+      )}
 
       <style>{`
         @keyframes fadeIn {
@@ -313,7 +422,7 @@ export function ServicesShowcase() {
           }
         }
         .animate-fadeIn {
-          animation: fadeIn 0.3s ease-out;
+          animation: fadeIn 0.5s ease-out;
         }
       `}</style>
     </div>
